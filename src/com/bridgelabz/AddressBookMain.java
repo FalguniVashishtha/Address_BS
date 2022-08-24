@@ -7,7 +7,7 @@ public class AddressBookMain {
     //Creating a method to add person details
     public static void addDetails() {
         Scanner sc = new Scanner(System.in);
-        ContactList info = new ContactList();//Creating an object for ContactList class
+        ContactList info = new ContactList();
 
         System.out.print("Enter the First Name : ");
         info.setFirstName(sc.nextLine());
@@ -26,7 +26,7 @@ public class AddressBookMain {
         System.out.print("Enter the Email Address: ");
         info.setEmailAddress(sc.nextLine());
 
-        contactDetails.add(info);  //Adding elements to the arrayList
+        contactDetails.add(info);  //Adding elements to the array list
     }
     //Method to edit the details
     public void editDetails() {
@@ -34,17 +34,16 @@ public class AddressBookMain {
         System.out.println("Enter the first name you want to edit ");
         String fName = sc.next();
         // for each loop
-        for (ContactList contact : contactDetails)
-        {
-            String name = contact.getFirstName();// store the first name that you want to edit.
+        for (ContactList contact : contactDetails) {
+            String name = contact.getFirstName();//store the first name that you want to edit
+
             // if the first name matches with the entered name, using equals method
             if (name.equals(fName)) {
                 System.out.println("Enter the number to edit respective info: ");
                 System.out.println("1. First Name \n2. Last Name \n3. Address \n4. City \n5. State \n6. Zip Code \n7. Contact Number \n8. Email Address");
                 System.out.println("Enter value to update: ");
                 int choose = sc.nextInt();
-                switch (choose)
-                {
+                switch (choose) {
                     case 1:
                         System.out.println("Enter the first name you want to update");
                         String updatedFirstName = sc.next();
@@ -103,35 +102,42 @@ public class AddressBookMain {
     }
     //Method to display the Array List
     public static void displayContacts() {
-        for (ContactList contactsDetailsInfo : contactDetails)
-        {
+        for (ContactList contactsDetailsInfo : contactDetails) {
+
             System.out.println(contactsDetailsInfo);
+
         }
     }
     public void deleteContact() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the first name of the person to be deleted");
-        String firstName = sc.next();
-        Iterator<ContactList> iterator = contactDetails.listIterator();
-        while (iterator.hasNext()) {
+        System.out.println("\nEnter First Name for which you want to delete contact: ");
+        String firstname = sc.next();
+        Iterator<ContactList> removeContact = contactDetails.iterator();
+        //  Checking the next element untill last element remain
 
-            ContactList info = iterator.next();
-
-            if (firstName.equals(info.getFirstName())) {
-                contactDetails.remove(info);
-                System.out.printf("%s Contact removed", firstName + "\n");
-            } else
-                System.out.println("Contact not found\n");
+        while (removeContact.hasNext())
+        {
+            //  going to next element
+            ContactList nextElement = removeContact.next(); //object for Contactlist class
+            if (nextElement.getFirstName().equals(firstname) ) {
+                removeContact.remove();
+                System.out.println("Contact is removed!");
+                break;
+            }
+            else {
+                System.out.println("Contact not found.");
+            }
         }
     }
+
     public static void main (String[]args){
         Scanner sc = new Scanner(System.in);
-        System.out.println("Welcome to Address Book Program!)"); //Welcome Message
+        System.out.println("Welcome to Address Book Program!");
         AddressBookMain addressDetails = new AddressBookMain();
         int chooseNumber;
 
         do {
-            System.out.println("Enter the number to perform an action: ");
+            System.out.println("Enter the number ");
             System.out.println("1. Add Details \n2. Edit Details \n3. Delete Details \n4. Display Details \n5. exit ");
             chooseNumber = sc.nextInt();
 
