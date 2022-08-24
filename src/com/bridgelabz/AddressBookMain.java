@@ -30,8 +30,7 @@ public class AddressBookMain {
     public void editDetails(String firstName) {
         // for each loop
         for (ContactList contact : contactDetails) {
-            String name = contact.getFirstName();// "name" variable and store the first name that you want to edit.
-            // if the first name matches with the entered name, using equals method
+            String name = contact.getFirstName();
             if (name.equals(firstName)) {
                 System.out.println("Enter the number to edit: ");
                 System.out.println("1. First Name \n2. Last Name \n3. Address \n4. City \n5. State \n6. Zip Code \n7. Contact Number \n8. Email Address");
