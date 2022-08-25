@@ -1,6 +1,6 @@
 package com.bridgelabz;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -12,27 +12,55 @@ public class Operation {
     static HashMap<String, ArrayList<ContactList>> hashmap = new HashMap<>();
     // method For Adding Multiple Address Book
     public static void AddressBook(Operation operations) {
-        int num;
-        do {
-            System.out.println("Enter Name For Address Book.");
-            String AddressBookName = sc.next();
-            if (hashmap.containsKey(AddressBookName)) {
-                System.out.println("The AddressBook already contains.");
+        System.out.println("Select the Choice:\n1. Add Address Book \n2. Search City or State.");
+        int ch = sc.nextInt();
+        switch (ch) {
+            case 1:
+                int selection;
+                do {
+                    System.out.println("Enter Name For Address Book");
+                    String AddressBookName = sc.next();
+                    if (hashmap.containsKey(AddressBookName)) {
+                        System.out.println("The AddressBook already contains");
+                        break;
+                    } else {
+                        ArrayList<ContactList> contactDetails1 = new ArrayList<>();
+                        operations.menuChoose(operations, contactDetails1);
+                        hashmap.put(AddressBookName,contactDetails1);
+                    }
+                    System.out.println("AddressBook Added" + hashmap + " ");
+                    System.out.println("1. Add New Address Book \n2. Search Contact by City or State \n3. Exit");
+                    selection = sc.nextInt();
+                } while (selection == 1);
+            case 2:
+                System.out.println("Enter City or State name to search ");
+                String name = sc.next();
+                SearchInMultipleBook(name);
                 break;
-            } else {
-                ArrayList<ContactList> contactDetails = new ArrayList<>();
-                operations.menuChoose(operations, contactDetails);
-                hashmap.put(AddressBookName, contactDetails);
-            }
-            System.out.println("AddressBook Are" + hashmap + " ");
-            System.out.println("To continue the Press 1 or any other key to exit.");
-            num = sc.nextInt();
-        } while (num == 1);
+            default:
+        }
     }
-    /*
-       Create addDetails method
-       create info contact Class object
-        */
+    //Search person in a Multiple Address book.
+    private static List<ContactList> SearchInMultipleBook(String name) {
+        for (Map.Entry<String, ArrayList<ContactList>> entry : hashmap.entrySet()) {
+            for (ContactList contacts : entry.getValue()) {
+                if (contacts.getCity().equals(name) || contacts.getState().equals(name)) {
+                    System.out.println("\nAddress Book Name :" + entry.getKey());
+                    System.out.println("First Name :" + contacts.getFirstName());
+                    System.out.println("Last Name :" + contacts.getLastName());
+                    System.out.println("Email-ID :" + contacts.getEmail());
+                    System.out.println("Address :" + contacts.getAddress());
+                    System.out.println("City Name :" + contacts.getCity());
+                    System.out.println("Contact Number :" + contacts.getContactNo());
+                }
+            }
+        }
+        System.out.printf("No record found:");
+        return null;
+    }
+
+      // Create addDetails method
+
     public static ArrayList<ContactList> addDetails(ArrayList<ContactList> contactsDetails) {
         ContactList info = new ContactList();
         if (contactsDetails.size() == 0) {
@@ -116,6 +144,7 @@ public class Operation {
                         System.out.println("Enter the first name You want to update");
                         String updatedFirstName = sc.next();
                         contact.setFirstName(updatedFirstName);
+                        //displayContacts();
                         break;
                     case 2:
                         System.out.println("Enter the Last NAme You want to update");
@@ -224,4 +253,5 @@ public class Operation {
                     break;
             }
         }while (chooseNumber != 5 );
-    }}
+    }
+}
