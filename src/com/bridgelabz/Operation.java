@@ -20,6 +20,7 @@ public class Operation {
                 do {
                     System.out.println("Enter Name For Address Book");
                     String AddressBookName = sc.next();
+
                     if (hashmap.containsKey(AddressBookName)) {
                         System.out.println("The AddressBook already contains");
                         break;
@@ -29,13 +30,20 @@ public class Operation {
                         hashmap.put(AddressBookName,contactDetails1);
                     }
                     System.out.println("AddressBook Added" + hashmap + " ");
-                    System.out.println("1. Add New Address Book \n2. Search Contact by City or State \n3. Exit");
+                    System.out.println("1. Add New Address Book \n2. Search Contact by City or State\n3. Search Contact by State \n" +
+                            "4. Search Contact by City\n5. Exit");
                     selection = sc.nextInt();
                 } while (selection == 1);
             case 2:
                 System.out.println("Enter City or State name to search ");
                 String name = sc.next();
                 SearchInMultipleBook(name);
+                break;
+            case 3:
+                operations.searchByState();
+                break;
+            case 4:
+                operations.searchByCity();
                 break;
             default:
         }
@@ -58,9 +66,32 @@ public class Operation {
         System.out.printf("No record found:");
         return null;
     }
-
-      // Create addDetails method
-
+    public void SearchInSingleBook(ArrayList<ContactList> contactdetails){
+        System.out.println("Enter name of city or state to search");
+        String name=sc.next();
+        ArrayList<ContactList> contacts=new ArrayList<>();
+        for (ContactList contact:contactdetails){
+            if(contact.getCity().equals(name)||contact.getState().equals(name))
+            {
+                contacts.add(contact);
+            }
+            System.out.println(contact);
+        }
+    }
+    public void searchByCity() {
+        System.out.println("Enter the city:");
+        String city = sc.next();
+        contactDetails.stream().filter(contacts -> contacts.getCity().equalsIgnoreCase(city)).forEach(contacts -> System.out.println(contacts));
+    }
+    public void searchByState() {
+        System.out.println("Enter the State:");
+        String state = sc.next();
+        contactDetails.stream().filter(contacts -> contacts.getState().equalsIgnoreCase(state)).forEach(contacts -> System.out.println(contacts));
+    }
+    /*
+       Create addDetails method
+       create info contact Class object
+        */
     public static ArrayList<ContactList> addDetails(ArrayList<ContactList> contactsDetails) {
         ContactList info = new ContactList();
         if (contactsDetails.size() == 0) {
