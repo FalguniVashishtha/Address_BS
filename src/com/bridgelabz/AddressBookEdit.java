@@ -68,6 +68,7 @@ public class AddressBookEdit {
     }
     //Method to edit the contact for Book2
     public static void editBook2Details() {
+        Scanner sc = new Scanner(System.in);
         System.out.println("Enter the first name you want to edit ");
         String fName = sc.next();
         // for each loop
